@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout código
+      - name: Checkout codigo
         uses: actions/checkout@v3
 
       - name: Instalar Node.js
@@ -36,14 +36,3 @@ jobs:
             **/.git*
             **/.git*/**
             **/node_modules/**
-```
-
----
-
-## Paso 3 — Subir a GitHub
-
-En la terminal de VS Code:
-```
-git add .
-git commit -m "agregar deploy automatico"
-git push
