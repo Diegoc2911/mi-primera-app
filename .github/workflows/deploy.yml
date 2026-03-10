@@ -1,0 +1,49 @@
+name: Deploy to Hosting
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v3
+
+      - name: Instalar Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Instalar dependencias
+        run: npm install
+
+      - name: Compilar proyecto
+        run: npm run build
+
+      - name: Subir al hosting por FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./
+          server-dir: /mi-primera-app/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+```
+
+---
+
+## Paso 3 — Subir a GitHub
+
+En la terminal de VS Code:
+```
+git add .
+git commit -m "agregar deploy automatico"
+git push
